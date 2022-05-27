@@ -48,7 +48,8 @@ difficulty = input()
 
 #It's taking the sowpods word BUT not finding all occurences of a single letter guess. Next step is to debug and find why
 
-#test branch
+#Now guessing the same letter will be kicked back to the user without penalty (not really, this is a test branch lol)
+
 
 word="Cheese"
 wordupper=word.upper()
