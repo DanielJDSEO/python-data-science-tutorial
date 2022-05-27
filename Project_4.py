@@ -47,7 +47,7 @@ difficulty = input()
 # word = chooseRandomWord(difficulty)
 
 #It's taking the sowpods word BUT not finding all occurences of a single letter guess. Next step is to debug and find why.
-
+ 
 
 word="Cheese"
 wordupper=word.upper()
