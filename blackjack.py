@@ -14,7 +14,8 @@
 # along with deck penetration, although deck penetration is not functional yet. It will be used to determine how prematurely a Shoe simulation ends.
 # To play real-time hands one Shoe can be used and for simulations of multiple shoes a simulator object will be created.
 
-#Now that I have my Shoe set up, I will want to create objects for the Player and the Dealer
+#Now that I have my Shoe set up, I will want to create objects for the Player and the Dealer. I will start with the Dealer.
+# He needs to have 2 starting cards, one designated the Up card. He also requires the ability to draw additional cards.
 
 import itertools
 import random
@@ -46,7 +47,48 @@ class Shoe:
         print(Card)
         return(Card)
 
+class Dealer:
 
-Shoe_1=Shoe()
-Shoe_1.draw_card()
-print(len(Shoe_1.new_shoe))
+    def __init__ (self):
+
+        self.starting_hand = []
+        
+
+    def draw_card(self):
+        Card = Shoe.new_shoe.pop()
+        print(Card)
+        return(Card)
+
+    def draw_starting_hand(self):
+        self.starting_hand.append(self.draw_card()) 
+        self.starting_hand.append(self.draw_card())
+        self.upcard = self.starting_hand[0]
+
+
+class Player:
+    
+    def __init__ (self):
+
+        self.starting_hand = []
+        
+
+    def draw_card(self):
+        Card = Shoe.new_shoe.pop()
+        print(Card)
+        return(Card)
+
+    def draw_starting_hand(self):
+        self.starting_hand.append(self.draw_card()) 
+        self.starting_hand.append(self.draw_card())
+
+
+Shoe=Shoe()
+Dealer = Dealer()
+Player = Player()
+
+print(len(Shoe.new_shoe))
+
+Dealer.draw_starting_hand()
+Player.draw_starting_hand()
+
+print(len(Shoe.new_shoe))
