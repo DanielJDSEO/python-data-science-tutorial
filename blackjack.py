@@ -29,6 +29,11 @@ class Card:
     list_of_values = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
     list_of_suits = ["spades","diamonds","hearts","clubs"]
 
+    values_dict = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 10, 'Q': 10, 'K': 10}
+
+    #Need to figure out mechanism for determining the value of an Ace.
+
+
     def __init__(self,value,suit):
         self.value = value
         self.suit = suit
@@ -62,7 +67,6 @@ class Dealer:
 
     def draw_card(self):
         Card = Shoe.new_shoe.pop()
-        print(Card)
         return(Card)
 
     def draw_starting_hand(self):
@@ -96,11 +100,26 @@ class Round_of_Blackjack:
 
     def begin_round(self):
 
-        Player.draw_starting_hand
-        Dealer.draw_starting_hand
+        #While loop will go up here
 
-        print(Dealer.upcard)
-        print(Player.starting_hand)
+        Player.draw_starting_hand()
+        Dealer.draw_starting_hand()
+
+        if Dealer.upcard[0] == 'A':
+            if input("Insurance? (Y/N)") == 'Y':
+                #IDK how insurance works but here's the mechanism placeholder
+                pass
+            else:
+                print("Insurance closed")
+        
+
+        
+
+        print(Card.values_dict.get(Player.starting_hand[0][0]))
+        #print(Dealer.upcard)
+        #print(len(Shoe.new_shoe))
+
+
 
 Round_of_Blackjack = Round_of_Blackjack()
 Shoe = Shoe()
