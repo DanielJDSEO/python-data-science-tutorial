@@ -58,11 +58,10 @@ class Shoe:
 
 class Dealer:
 
-    upcard = []
-
     def __init__ (self):
 
         self.starting_hand = []
+        self.upcard = []
         
 
     def draw_card(self):
@@ -105,19 +104,46 @@ class Round_of_Blackjack:
         Player.draw_starting_hand()
         Dealer.draw_starting_hand()
 
+
+#--This is basically the block of code that checks for Blackjacks of all sorts--
         if Dealer.upcard[0] == 'A':
             if input("Insurance? (Y/N)") == 'Y':
                 #IDK how insurance works but here's the mechanism placeholder
                 pass
             else:
                 print("Insurance closed")
-        
+            if Card.values_dict.get(Dealer.starting_hand[1][0]) == 10:
+                print(Dealer.starting_hand)
+                print("Dealer has Blackjack!")
+                if Player.starting_hand[0][0] == 'A' or Player.starting_hand[1][0] == 'A':
+                    if Card.values_dict.get(Player.starting_hand[0][0]) == 10 or Card.values_dict.get(Player.starting_hand[1][0]) == 10:
+                        print("Player has Blackjack! /n Push!")
+                        #Break loop here - this is an End condition
+                #Break loop here - this is an End condition
+        elif Card.values_dict.get(Dealer.starting_hand[0][0]) == 10 and Dealer.starting_hand[1][0] == 'A':
+            print("Dealer has Blackjack!")
+            if Player.starting_hand[0][0] == 'A' or Player.starting_hand[1][0] == 'A':
+                if Card.values_dict.get(Player.starting_hand[0][0]) == 10 or Card.values_dict.get(Player.starting_hand[1][0]) == 10:
+                    print("Player has Blackjack! /n Push!")
+                    #Break loop here - this is an End condition
+            #Break loop here - this is an End condition
+        else:
+            if Player.starting_hand[0][0] == 'A' or Player.starting_hand[1][0] == 'A':
+                if Card.values_dict.get(Player.starting_hand[0][0]) == 10 or Card.values_dict.get(Player.starting_hand[1][0]) == 10:
+                    print("Player has Blackjack!")
+#--This is basically the block of code that checks for Blackjacks of all sorts--
+    
+    
+
+
 
         
 
-        print(Card.values_dict.get(Player.starting_hand[0][0]))
+        #print(Card.values_dict.get(Player.starting_hand[0][0]))
         #print(Dealer.upcard)
+        print(Dealer.starting_hand)
         #print(len(Shoe.new_shoe))
+
 
 
 
