@@ -17,6 +17,10 @@
 #Now that I have my Shoe set up, I will want to create objects for the Player and the Dealer. I will start with the Dealer.
 # He needs to have 2 starting cards, one designated the Up card. He also requires the ability to draw additional cards.
 
+#The Player and Dealer exist. Next, the instance for a single round of Blackjack needs to be created. This will mean the Player places a bet, the Dealer
+# and Player draw their starting hands, the Player makes their decision, then (if the game continues) the dealer makes their decisions, and a determination
+# for the round is made. This is going to necessitate that the lists and tuples are evaluated to number values.
+
 import itertools
 import random
 
@@ -49,6 +53,8 @@ class Shoe:
 
 class Dealer:
 
+    upcard = []
+
     def __init__ (self):
 
         self.starting_hand = []
@@ -63,6 +69,7 @@ class Dealer:
         self.starting_hand.append(self.draw_card()) 
         self.starting_hand.append(self.draw_card())
         self.upcard = self.starting_hand[0]
+        return self.upcard
 
 
 class Player:
@@ -82,13 +89,22 @@ class Player:
         self.starting_hand.append(self.draw_card())
 
 
-Shoe=Shoe()
+class Round_of_Blackjack:
+
+    def __init__ (self):
+        pass
+
+    def begin_round(self):
+
+        Player.draw_starting_hand
+        Dealer.draw_starting_hand
+
+        print(Dealer.upcard)
+        print(Player.starting_hand)
+
+Round_of_Blackjack = Round_of_Blackjack()
+Shoe = Shoe()
 Dealer = Dealer()
 Player = Player()
 
-print(len(Shoe.new_shoe))
-
-Dealer.draw_starting_hand()
-Player.draw_starting_hand()
-
-print(len(Shoe.new_shoe))
+Round_of_Blackjack.begin_round()
