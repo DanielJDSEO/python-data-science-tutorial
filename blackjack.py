@@ -29,7 +29,8 @@ class Card:
     list_of_values = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
     list_of_suits = ["spades","diamonds","hearts","clubs"]
 
-    values_dict = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 10, 'Q': 10, 'K': 10}
+    values_dict = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 10, 'Q': 10, 'K': 10,
+                    'A':{True: 1, False: 11}}
 
     #Need to figure out mechanism for determining the value of an Ace.
 
@@ -62,7 +63,11 @@ class Dealer:
 
         self.starting_hand = []
         self.upcard = []
-        
+        self.current_hand = self.starting_hand
+    
+    def hit(self):
+        self.current_hand.append(self.draw_card())
+        print(self.current_hand)
 
     def draw_card(self):
         Card = Shoe.new_shoe.pop()
@@ -78,9 +83,13 @@ class Dealer:
 class Player:
     
     def __init__ (self):
-
+        self.bet = 0
         self.starting_hand = []
+        self.current_hand = self.starting_hand
         
+    def hit(self):
+        self.current_hand.append(self.draw_card())
+        print(self.current_hand)
 
     def draw_card(self):
         Card = Shoe.new_shoe.pop()
@@ -91,6 +100,14 @@ class Player:
         self.starting_hand.append(self.draw_card()) 
         self.starting_hand.append(self.draw_card())
 
+    def double(self):
+        self.bet * 2
+        #Need mechanism to limit the number of hits after one has doubled
+
+    def split(self):
+        pass
+        #How to create a split function?
+
 
 class Round_of_Blackjack:
 
@@ -100,6 +117,8 @@ class Round_of_Blackjack:
     def begin_round(self):
 
         #While loop will go up here
+
+        #Player.bet = input("Place your bet")
 
         Player.draw_starting_hand()
         Dealer.draw_starting_hand()
@@ -132,18 +151,18 @@ class Round_of_Blackjack:
                 if Card.values_dict.get(Player.starting_hand[0][0]) == 10 or Card.values_dict.get(Player.starting_hand[1][0]) == 10:
                     print("Player has Blackjack!")
 #--This is basically the block of code that checks for Blackjacks of all sorts--
+
+#--Adding the Dealer's action block--
+        while Card.values_dict.get(Dealer.starting_hand[0][0]) + Card.values_dict.get(Dealer.starting_hand[1][0]) >= 17:
+            break
     
-    
-
-
-
-        
 
         #print(Card.values_dict.get(Player.starting_hand[0][0]))
         #print(Dealer.upcard)
-        print(Dealer.starting_hand)
-        #print(len(Shoe.new_shoe))
-
+        # print(Dealer.starting_hand)
+        # Player.hit()
+        # Dealer.hit()
+        # print(len(Shoe.new_shoe))
 
 
 
