@@ -4,4 +4,5 @@
 
 #Now that I've made the instance variables 'private', I'm having trouble drawing a card from the Shoe instance.
 # I want to re-write the code so that Card objects are created and placed into the Shoe object, and then the Dealer and Player draw 
-# the Card objects from the Shoe object. Then, I want evaluations performed on the Card objects that the Dealer and Player are holding.
+# the Card objects from the Shoe object. Then, I want evaluations performed on the Card objects that the Dealer and Player are holding. I will create separate
+# files for the Card and Shoe classes.
