@@ -85,6 +85,7 @@ class lucky_lucky(Shoe,Player):
 
 #The check for 19 or 20 works as intended. I need to find an efficient way to determine the value of Aces using a loop/iteration.
 # Then, it'll be smooth sailing.
+#Commits are being weird - trying to save to Github
     def winning_conditions(self):
 
         if (self.values_dict.get(self.__luckyluckyhand[0][0]) + self.values_dict.get(self.__luckyluckyhand[1][0]) + self.values_dict.get(self.__luckyluckyhand[2][0])) == (19 or 20):
