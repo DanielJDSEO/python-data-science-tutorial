@@ -1,4 +1,4 @@
-#I using the Lucky Lucky class to run the game instance and initializing the Shoe and Player instances within the game instance. This should provide an
+#I am using the Lucky Lucky class to run the game instance and initializing the Shoe and Player instances within the game instance. This should provide an
 # overarching instance to do additional actions: Pull cards from the Shoe instance, move them to the game instance, and then from the game instance
 # into the Player instance.
 
@@ -42,6 +42,7 @@ class Shoe(Card):
         self.draw_card()
         self.draw_card()
 
+
 class Player:
     
     def __init__ (self):
@@ -49,8 +50,10 @@ class Player:
         self.__starting_hand = []
 
 class Dealer(Player):
+
     def __init__(self):
-        pass
+        self.__upcard = upcard = []
+        self.__starting_hand = starting_hand = []
 
 
 class lucky_lucky(Shoe,Player):
@@ -61,17 +64,40 @@ class lucky_lucky(Shoe,Player):
         self.__d1 = Dealer()
         self.__p1holding = []
         self.__d1holding = []
+        self.__luckyluckyhand = []
 
     def draw_starting_hand(self):
-        self.__p1holding += self.__s1.draw_card()
-        self.__p1holding += self.__s1.draw_card()
-        self.__d1holding += self.__s1.draw_card()
-        self.__d1holding += self.__s1.draw_card()
+        self.__p1holding.append(self.__s1.draw_card())
+        self.__p1holding.append(self.__s1.draw_card())
+        self.__d1holding.append(self.__s1.draw_card())
+        self.__d1holding.append(self.__s1.draw_card())
         
         self.__p1.__starting_hand = self.__p1holding
         self.__d1.__starting_hand = self.__d1holding
-        print(self.__p1.__starting_hand)
-        print(self.__d1.__starting_hand)
+        self.__d1.__upcard = self.__d1.__starting_hand[0]
+
+        self.__luckyluckyhand.append(self.__p1.__starting_hand[0])
+        self.__luckyluckyhand.append(self.__p1.__starting_hand[1])
+        self.__luckyluckyhand.append(self.__d1.__upcard)
+
+        print(self.__luckyluckyhand)
+
+
+#The check for 19 or 20 works as intended. I need to find an efficient way to determine the value of Aces using a loop/iteration.
+# Then, it'll be smooth sailing.
+    def winning_conditions(self):
+
+        if (self.values_dict.get(self.__luckyluckyhand[0][0]) + self.values_dict.get(self.__luckyluckyhand[1][0]) + self.values_dict.get(self.__luckyluckyhand[2][0])) == (19 or 20):
+            return print ("Nice!")
+        else:
+            return print ("Not Nice!")
+
+    def winning_conditions_test(self):
+        return print(type(self.values_dict.get(self.__luckyluckyhand[0][0])))
+
+
+        
+        
 
     
     
@@ -80,3 +106,7 @@ class lucky_lucky(Shoe,Player):
 game1 = lucky_lucky()
 
 game1.draw_starting_hand()
+
+# game1.winning_conditions_test()
+
+game1.winning_conditions()
