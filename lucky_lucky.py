@@ -12,7 +12,7 @@ class Card:
     list_of_suits = ["spades","diamonds","hearts","clubs"]
 
     values_dict = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 10, 'Q': 10, 'K': 10,
-                    'A':{True: 1, False: 11}}
+                    'A': 0}
 
     def __init__ (self,value,suit):
         self.__value = value
@@ -38,9 +38,9 @@ class Shoe(Card):
         print(__card)
         return(__card)
 
-    def deal_starting_hand(self):
-        self.draw_card()
-        self.draw_card()
+    # def deal_starting_hand(self):
+    #     self.draw_card()
+    #     self.draw_card()
 
 
 class Player:
@@ -65,27 +65,59 @@ class lucky_lucky(Shoe,Player):
         self.__p1holding = []
         self.__d1holding = []
         self.__luckyluckyhand = []
+        self.__luckyluckyhand_aces = 0
 
     def draw_starting_hand(self):
+        
+        #Cards are drawn from the Shoe instance that is initialized in the lucky_lucky instance. They are then appended to lists initialized in the
+        # lucky_lucky instance.
         self.__p1holding.append(self.__s1.draw_card())
         self.__p1holding.append(self.__s1.draw_card())
         self.__d1holding.append(self.__s1.draw_card())
         self.__d1holding.append(self.__s1.draw_card())
         
+        #The lists initialized in the lucky_lucky instance are copied to the Player and Dealers' instances' lists that were initialized in the lucky_lucky 
+        # instance.
         self.__p1.__starting_hand = self.__p1holding
         self.__d1.__starting_hand = self.__d1holding
         self.__d1.__upcard = self.__d1.__starting_hand[0]
 
-        self.__luckyluckyhand.append(self.__p1.__starting_hand[0])
-        self.__luckyluckyhand.append(self.__p1.__starting_hand[1])
-        self.__luckyluckyhand.append(self.__d1.__upcard)
+        #The __luckyluckyhand list in the lucky_lucky instance is filled with the Player and Dealer instances' lists using append. In the process,
+        # The value of each card is checked to see whether if it's an Ace or not. If so, it adds to the __luckyluckyhand_aces counter.
+        if self.__p1.__starting_hand[0][0] == 'A':
+            self.__luckyluckyhand.append(self.__p1.__starting_hand[0])
+            self.__luckyluckyhand_aces += 1
+        else:
+            self.__luckyluckyhand.append(self.__p1.__starting_hand[0])
+
+        if self.__p1.__starting_hand[1][0] == 'A':
+            self.__luckyluckyhand.append(self.__p1.__starting_hand[1])
+            self.__luckyluckyhand_aces += 1
+        else:
+            self.__luckyluckyhand.append(self.__p1.__starting_hand[1])
+
+        if self.__d1.__upcard[0][0] == 'A':
+            self.__luckyluckyhand.append(self.__d1.__upcard)
+            self.__luckyluckyhand_aces += 1
+        else:
+            self.__luckyluckyhand.append(self.__d1.__upcard)
 
         print(self.__luckyluckyhand)
+        print(self.__luckyluckyhand_aces)
+
+#Here's my rough draft concept:
+# When drawing the starting hands & upcard, look for Aces. If Aces, add to a counter.
+# During win condition evaluation, check to see if the Ace counter is not zero.
+# If it isn't, need to generate two hands with 1 and 11 or two hands with 2 and 12, or automatic loss with three Aces.
+# Aces will read out of the dict at int 0 to essentially skip them.
+# Suit will be evaluated once the more exclusive win conditions are met to save time.
 
 
-#The check for 19 or 20 works as intended. I need to find an efficient way to determine the value of Aces using a loop/iteration.
-# Then, it'll be smooth sailing.
-#Commits are being weird - trying to save to Github
+#Now, how to count the Aces as cards are drawn from the Shoe?
+# I'm going to count the Aces as they are added to the luckyluckyhand list, since those are the ones we care about.
+
+
+
     def winning_conditions(self):
 
         if (self.values_dict.get(self.__luckyluckyhand[0][0]) + self.values_dict.get(self.__luckyluckyhand[1][0]) + self.values_dict.get(self.__luckyluckyhand[2][0])) == (19 or 20):
@@ -96,12 +128,6 @@ class lucky_lucky(Shoe,Player):
     def winning_conditions_test(self):
         return print(type(self.values_dict.get(self.__luckyluckyhand[0][0])))
 
-
-        
-        
-
-    
-    
 
 
 game1 = lucky_lucky()
